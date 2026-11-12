@@ -1,0 +1,4 @@
+C:/Users/ROHAN/Desktop/LiteTube/build/CMakeFiles/LiteTube.dir
+C:/Users/ROHAN/Desktop/LiteTube/build/CMakeFiles/edit_cache.dir
+C:/Users/ROHAN/Desktop/LiteTube/build/CMakeFiles/rebuild_cache.dir
+C:/Users/ROHAN/Desktop/LiteTube/build/CMakeFiles/LiteTube_autogen.dir
