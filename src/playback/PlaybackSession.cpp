@@ -59,7 +59,9 @@ void PlaybackSession::sync() {
 }
 bool PlaybackSession::ensureInit() {
     if (mpv_.isReady()) return true;
-    if (!stage_ || !video_->isVisible()) return false;
+    // Every false return must already have reported a failure: startLoad() returns
+    // early here, so a silent false would leave the session stuck in Loading forever.
+    if (!stage_ || !video_->isVisible()) { fail("Video output is not available yet (the player page is not visible)."); return false; }
     QString err;
     if (!mpv_.init(video_->nativeId(), &err)) { fail("Video output failed to start: " + err); return false; }
     return true;
@@ -72,10 +74,12 @@ void PlaybackSession::fail(const QString& msg) {
     emit failed(msg);
 }
 void PlaybackSession::stop() {
+    // Read position/duration BEFORE mpv_.stop() zeroes them, otherwise resume never persists.
+    if (ctx_.history && state_ == Playing && !shorts_ && mpv_.duration() > 30)
+        ctx_.history->updatePosition(cur_.id, mpv_.position());
     ctx_.resolver->cancel(req_); req_ = -1;
     mpv_.stop();
     loadTimeout_.stop(); bufTimeout_.stop();
-    if (ctx_.history && state_ == Playing && !shorts_ && mpv_.duration() > 30) ctx_.history->updatePosition(cur_.id, mpv_.position());
     state_ = Idle;
 }
 void PlaybackSession::play(const VideoInfo& v, double start) {

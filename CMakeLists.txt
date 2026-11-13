@@ -16,7 +16,12 @@ if(NOT MPV_INCLUDE_DIR OR NOT MPV_LIBRARY)
 endif()
 
 option(LITETUBE_SELFTEST "Build the headless self-test (--selftest)" OFF)
-file(GLOB_RECURSE SRC src/*.cpp src/*.h)
+# CONFIGURE_DEPENDS (CMake 3.12+): new sources are picked up without a manual cmake re-run.
+if(CMAKE_VERSION VERSION_GREATER_EQUAL 3.12)
+  file(GLOB_RECURSE SRC CONFIGURE_DEPENDS src/*.cpp src/*.h)
+else()
+  file(GLOB_RECURSE SRC src/*.cpp src/*.h)
+endif()
 if(LITETUBE_SELFTEST)
   list(APPEND SRC tests/selftest.cpp)
 endif()
