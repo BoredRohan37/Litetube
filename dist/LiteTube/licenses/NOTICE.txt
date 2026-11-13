@@ -1,6 +1,0 @@
-LiteTube bundles or uses the following third-party components. Include their full license texts when distributing.
-- Qt 5 (LGPL v3) - https://www.qt.io/ - dynamically linked; source available from Qt.
-- mpv / libmpv (GPL v2+ or LGPL v2.1+ depending on build) - https://mpv.io/ - use an LGPL libmpv build.
-- FFmpeg (LGPL/GPL depending on build).
-- yt-dlp (The Unlicense) - https://github.com/yt-dlp/yt-dlp - separate executable, replaceable.
-LiteTube is not affiliated with or endorsed by YouTube or Google. Use of YouTube is subject to YouTube's Terms of Service.
